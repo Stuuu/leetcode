@@ -1,0 +1,15 @@
+#!/usr/local/bin/php
+<?php
+// helper to turn prob name into file
+
+// first arg is file name we can ignore it
+array_shift($argv);
+
+$file_name = implode("", $argv) . '.php';
+$fh = fopen($file_name, "w") or die("Unable to open file");
+$txt = "<?php \n";
+fwrite($fh, $txt);
+fclose($fh);
+
+
+?>
