@@ -14,7 +14,7 @@ $s = "book";
 // Explanation: a = "bo" and b = "ok". a has 1 vowel and b has 1 vowel. Therefore, they are alike.
 // Example 2:
 
-// $s = "textbook";
+$s = "textbook";
 // Output: false
 // Explanation: a = "text" and b = "book". a has 1 vowel whereas b has 2. Therefore, they are not alike.
 // Notice that the vowel o is counted twice.
@@ -48,10 +48,17 @@ class Solution
 
         $h1 = 0;
         $h2 = 0;
-        foreach (self::VOWELS as $vowel) {
-            $h1 += substr_count($s, $vowel, 0, $h_l);
-            $h2 += substr_count($s, $vowel, $h_l);
-        }
+        $h1 += substr_count($s, 'a', 0, $h_l);
+        $h1 += substr_count($s, 'e', 0, $h_l);
+        $h1 += substr_count($s, 'i', 0, $h_l);
+        $h1 += substr_count($s, 'o', 0, $h_l);
+        $h1 += substr_count($s, 'u', 0, $h_l);
+
+        $h2 += substr_count($s, 'a', $h_l);
+        $h2 += substr_count($s, 'e', $h_l);
+        $h2 += substr_count($s, 'i', $h_l);
+        $h2 += substr_count($s, 'o', $h_l);
+        $h2 += substr_count($s, 'u', $h_l);
         return ($h1 === $h2);
     }
 }
