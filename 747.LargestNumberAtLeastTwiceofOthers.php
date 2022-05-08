@@ -36,13 +36,17 @@ class Solution
      * @param int[] $nums
      * @return int
      */
-    function dominantIndex($nums)
+    public function dominantIndex($nums)
     {
         $num_keys = array_flip($nums);
         sort($nums);
         $c = count($nums);
-        if ($c === 1) return 0;
-        if ($nums[$c - 1] >= (2 * $nums[$c - 2])) return $num_keys[$nums[$c - 1]];
+        if ($c === 1) {
+            return 0;
+        }
+        if ($nums[$c - 1] >= (2 * $nums[$c - 2])) {
+            return $num_keys[$nums[$c - 1]];
+        }
         return -1;
     }
 }
