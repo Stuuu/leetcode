@@ -40,4 +40,29 @@ class Solution
         return $still_standing;
     }
 }
+
+// Second approach
+class Solution
+{
+
+  /**
+   * @param Integer[][] $nums
+   * @return Integer[]
+   */
+    public function intersection($nums)
+    {
+        $return = [];
+        array_walk_recursive(
+            $nums,
+            function ($a) use (&$return) {
+                $return[] = $a;
+            }
+        );
+        $val_counts = array_count_values($return);
+        $still_standing  =array_keys($val_counts, count($nums));
+        asort($still_standing);
+        return $still_standing;
+    }
+}
+
 print_r((new Solution())->intersection($nums));
