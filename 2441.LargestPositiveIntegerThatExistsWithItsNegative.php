@@ -7,7 +7,7 @@
 
 // Example 1:
 
-$nums = [-1,2,-3,3];
+$nums = [-1, 2, -3, 3];
 // Output: 3
 // Explanation: 3 is the only valid k we can find in the array.
 // Example 2:
@@ -28,22 +28,24 @@ $nums = [-1,2,-3,3];
 // -1000 <= nums[i] <= 1000
 // nums[i] != 0
 
-class Solution {
+class Solution
+{
 
   /**
    * @param Integer[] $nums
    * @return Integer
    */
-  function findMaxK($nums) {
+  function findMaxK($nums)
+  {
     $nums = array_flip($nums);
     krsort($nums);
 
-    foreach($nums as $num => $unused_old_key){
-      if($num <= 0){
+    foreach ($nums as $num => $unused_old_key) {
+      if ($num <= 0) {
         return -1;
       }
 
-      if(isset($nums[(0 - $num)])){
+      if (isset($nums[(0 - $num)])) {
         return $num;
       }
     }
