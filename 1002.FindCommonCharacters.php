@@ -3,13 +3,13 @@
 
 // Example 1:
 
-$words = ["bella","label","roller"];
+$words = ["bella", "label", "roller"];
 // Output: ["e","l","l"]
 // Example 2:
 
-$words = ["cool","lock","cook"];
+// $words = ["cool", "lock", "cook"];
 // Output: ["c","o"]
- 
+
 
 // Constraints:
 
@@ -19,24 +19,50 @@ $words = ["cool","lock","cook"];
 class Solution
 {
 
-  /**
-   * @param String[] $words
-   * @return String[]
-   */
+    /**
+     * @param string[] $words
+     * @return string[]
+     */
     public function commonChars($words)
     {
+
+        // we can use the letters in the first word
+        // to check all other words
         $letters = str_split($words[0]);
-        array_shift($words);
-        $ans = [];
+        $letters_by_count = array_count_values($letters);
+
+        // remove first word as we're accounting for it's
+        // letters in our orginal check
+        unset($words[0]);
+
         foreach ($words as $word) {
-            foreach ($letters as $letter) {
-                $index = strpos($word, $letter);
-                if ($index !== false) {
-                    $ans[] = $letter;
+            $current_word_letters_by_count = array_count_values(str_split($word));
+
+            // check all letters in our first word agianst letters in the current word
+            foreach ($letters_by_count as $letter => $letter_count) {
+                if (!isset($current_word_letters_by_count[$letter])) {
+                    unset($letters_by_count[$letter]);
+                    continue;
+                }
+
+                if ($current_word_letters_by_count[$letter] !== $letters_by_count[$letter]) {
+                    $letters_by_count[$letter] = min(
+                        [
+                            $current_word_letters_by_count[$letter],
+                            $letters_by_count[$letter]
+                        ]
+                    );
                 }
             }
         }
-        print_r($ans);
+
+        $ans = [];
+        foreach ($letters_by_count as $letter => $l_count) {
+            for ($i = 0; $i < $l_count; $i++) {
+                $ans[] = $letter;
+            }
+        }
+        return $ans;
     }
 }
 (new Solution())->commonChars($words);
