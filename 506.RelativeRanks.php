@@ -57,11 +57,11 @@ class Solution
           break;
 
         default:
-          $single_score = $score[$single_score] + 1;
+          $single_score = (string) ($score[$single_score] + 1);
           break;
       }
     }
-    return $single_score;
+    return $original_scores;
   }
 }
 (new Solution())->findRelativeRanks($score);
