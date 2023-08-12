@@ -22,7 +22,7 @@ $hours = [0,1,2,3,4]; $target = 2;
 // There are 3 employees who met the target.
 // Example 2:
 
-$hours = [5,1,4,2,2]; $target = 6;
+// $hours = [5,1,4,2,2]; $target = 6;
 // Output: 0
 // Explanation: The company wants each employee to work for at least 6 hours.
 // There are 0 employees who met the target.
@@ -42,10 +42,13 @@ class Solution
    */
     public function numberOfEmployeesWhoMetTarget($hours, $target)
     {
-        $a = array_filter($hours, function ($worker_hours) use ($target) {
-            return $worker_hours >= $target;
-        });
-        return count($a);
+        $count = 0;
+        foreach ($hours as $worker_hours) {
+            if ($worker_hours >= $target) {
+                $count++;
+            }
+        }
+        return $count;
     }
 }
 echo (new Solution())->numberOfEmployeesWhoMetTarget($hours, $target);
