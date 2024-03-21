@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"slices"
 	"strings"
 )
 
@@ -44,16 +45,18 @@ func main() {
 
 	// s := "leetcode"
 
+	// s := "abcd"
+
 	s := "abcba"
 
 	fmt.Println(isSubstringPresent(s))
 }
 
 func isSubstringPresent(s string) bool {
-
-	s_reversed := reverse(s)
-
 	s_parts := strings.Split(s, ``)
+
+	s_reversed := reverse(s_parts)
+
 	s_len := len(s_parts)
 	for index, char := range s_parts {
 		if index == s_len-1 {
@@ -66,15 +69,10 @@ func isSubstringPresent(s string) bool {
 	return false
 }
 
-func reverse(s string) string {
-	rns := []rune(s) // convert to rune
-	for i, j := 0, len(rns)-1; i < j; i, j = i+1, j-1 {
+func reverse(s_parts []string) string {
 
-		// swap the letters of the string,
-		// like first with last and so on.
-		rns[i], rns[j] = rns[j], rns[i]
-	}
+	s_parts_reversed := append([]string(nil), s_parts...)
+	slices.Reverse(s_parts_reversed)
 
-	// return the reversed string.
-	return string(rns)
+	return strings.Join(s_parts_reversed, "")
 }
