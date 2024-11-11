@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"strconv"
 )
 
 // Alice is attempting to type a specific string on her computer. However, she tends to be clumsy and may press a key for too long, resulting in a character being typed multiple times.
@@ -44,31 +43,49 @@ import (
 
 func main() {
 
-	word := "aaaa"
+	word := "ere"
 
 	fmt.Println(possibleStringCount(word))
 }
 func possibleStringCount(word string) int {
 
-	getUniqueChars := make(map[string]int)
 	lastChar := rune(word[0])
-	letterGroupCount := 0
+	currentLetterCount := 0
+	possibleStringCount := 1
 	for _, char := range word {
 		if char != lastChar {
-			letterGroupCount++
+			possibleStringCount += (currentLetterCount - 1)
+			currentLetterCount = 0
 		}
-		charAndLetterGroupCount := string(char) + "." + strconv.Itoa(letterGroupCount)
-		getUniqueChars[charAndLetterGroupCount]++
-
+		currentLetterCount++
 		lastChar = char
 	}
 
-	// the original string is always possible so start the count at 1
-	possibleStringCount := 1
-	for _, count := range getUniqueChars {
-		if count > 1 {
-			possibleStringCount += (count - 1)
-		}
-	}
-	return possibleStringCount
+	return possibleStringCount + (currentLetterCount - 1)
 }
+
+// Solution 1 before refactor
+// func possibleStringCount(word string) int {
+
+// 	getUniqueChars := make(map[string]int)
+// 	lastChar := rune(word[0])
+// 	letterGroupCount := 0
+// 	for _, char := range word {
+// 		if char != lastChar {
+// 			letterGroupCount++
+// 		}
+// 		charAndLetterGroupCount := string(char) + "." + strconv.Itoa(letterGroupCount)
+// 		getUniqueChars[charAndLetterGroupCount]++
+
+// 		lastChar = char
+// 	}
+
+// 	// the original string is always possible so start the count at 1
+// 	possibleStringCount := 1
+// 	for _, count := range getUniqueChars {
+// 		if count > 1 {
+// 			possibleStringCount += (count - 1)
+// 		}
+// 	}
+// 	return possibleStringCount
+// }
