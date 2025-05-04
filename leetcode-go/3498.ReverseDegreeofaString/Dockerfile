@@ -1,9 +1,11 @@
-FROM golang:1.23-alpine
-
+# Build stage
+FROM golang:1.23-alpine AS builder
 WORKDIR /app
-
 COPY . .
+RUN go build -o program .
 
-RUN go build -o main .
-
-CMD ["./main"]
+# Runtime stage
+FROM alpine
+WORKDIR /app
+COPY --from=builder /app/program .
+CMD ["./program"]
