@@ -1,4 +1,4 @@
-#!/usr/local/bin/php
+#!/Users/stu/.config/herd-lite/bin/php
 <?php
 // helper to turn prob name into file
 
